@@ -1,0 +1,13 @@
+.input-task {
+  display: block;
+  margin: 1rem auto;
+  width: 80%;
+  height: 25px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+
+.input-task:focus {
+  outline: none;
+}
