@@ -16,7 +16,7 @@ export default function App() {
   }
 
   return (
-    <div>
+    <div className='app-container'>
       <InputTask
         input={input}
         onChange={(e) => setInput(e.target.value)}
@@ -36,7 +36,7 @@ function InputTask({ input, onChange, onKeyDown }) {
       value={input}
       onChange={onChange}
       onKeyDown={onKeyDown}
-      placeholder="Type a new task!"
+      placeholder="Type a new task and press enter!"
       autoComplete="nope"
     />
   )
@@ -52,7 +52,7 @@ function List({ list }) {
           type="checkbox"
           id={key}
         />
-        <label for={key}>{task}</label>
+        <label htmlFor={key}>{task}</label>
       </li>
     )
   })
