@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,8 +8,9 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, Verdana, Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, Courier, monospace;
+  font-family: 'Open Sans', Verdana, Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, Courier, monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-weight: 600;
 }
 
