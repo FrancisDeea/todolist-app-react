@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 export default function App() {
   const [input, setInput] = useState("");
   const [list, setList] = useState([]);
+  const [checked, setChecked] = useState([]);
   const [height, setHeight] = useState(0);
   const [tab, setTab] = useState("");
   const [darkMode, setDarkMode] = useState(false);
@@ -40,8 +41,29 @@ export default function App() {
       setList(JSON.parse(storage.getItem("list")))
     }
 
-    console.log(storage)
-  }, [list, height])
+  }, [list, height]);
+
+  useEffect(() => {
+    if (checked.length > 0) {
+      // Store checked items id's in local storage
+      storage.setItem("checked", JSON.stringify(checked));
+      // Check all checkboxes that are stored in checked state
+      checked.map(id => document.getElementById(id).checked = true);
+    } else if (checked.length == 0 && storage.checked) {
+      // Retrieve checked items from local storage
+      setChecked(JSON.parse(storage.getItem("checked")))
+    }
+  }, [checked])
+
+  function handleChange(e) {
+    const id = e.target.id;
+    const check = e.target.checked;
+    if (check) {
+      setChecked([...checked, id])
+    } else {
+      setChecked(checked.filter((item) => item !== id))
+    }
+  }
 
 
   return (
@@ -57,7 +79,10 @@ export default function App() {
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleEnter}
       />
-      <List list={list} />
+      <List 
+        list={list} 
+        onChange={handleChange}
+      />
     </div>
   )
 }
@@ -77,7 +102,7 @@ function InputTask({ input, onChange, onKeyDown }) {
   )
 }
 
-function List({ list }) {
+function List({ list, onChange }) {
   let key = 0;
   // Map over list and create a new li element for each task
   const todo = list.map(task => {
@@ -87,6 +112,7 @@ function List({ list }) {
         <input
           type="checkbox"
           id={key}
+          onChange={onChange}
         />
         <label htmlFor={key}>{task}</label>
       </li>
