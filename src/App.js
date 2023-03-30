@@ -19,15 +19,29 @@ export default function App() {
     }
   }
 
-  // Update height of container when list changes
   useEffect(() => {
+    // Get the container element
     let container = document.querySelector(".app-container");
+    // Set the height of the container element
     setHeight(container.scrollHeight);
 
-    if (container.offsetHeight >= (window.innerHeight * 0.60)) {
+    // If the height of the container element is greater than or equal to 60% of the window height,
+    // set overflow property of container element to "auto"
+    if (height >= (window.innerHeight * 0.60)) {
       container.style.overflow = "auto";
     }
-  }, [list])
+
+    // If list has items, store them in local storage
+    if (list.length > 0) {
+      storage.setItem("list", JSON.stringify(list));
+    } 
+    // If list is empty and local storage has items, retrieve them
+    else if (list.length === 0 && storage.length) {
+      setList(JSON.parse(storage.getItem("list")))
+    }
+
+    console.log(storage)
+  }, [list, height])
 
 
   return (
@@ -35,7 +49,7 @@ export default function App() {
       className='app-container'
       style={{
         height: `${height}px`,
-        transition: `height .2s ease`
+        transition: `height .3s ease`
       }}
     >
       <InputTask
